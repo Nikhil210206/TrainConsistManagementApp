@@ -1,18 +1,20 @@
-// Custom Exception
+// Custom Exception Class
 class InvalidCapacityException extends Exception {
+
     public InvalidCapacityException(String message) {
         super(message);
     }
 }
 
-// Passenger Bogie class
+// Passenger Bogie Class
 class PassengerBogie {
+
     String name;
     int capacity;
 
+    // Constructor with validation
     PassengerBogie(String name, int capacity) throws InvalidCapacityException {
 
-        // Validation
         if (capacity <= 0) {
             throw new InvalidCapacityException("Capacity must be greater than zero");
         }
@@ -21,29 +23,30 @@ class PassengerBogie {
         this.capacity = capacity;
     }
 
-    public String toString() {
-        return name + " -> " + capacity + " seats";
+    public void display() {
+        System.out.println(name + " -> " + capacity + " seats");
     }
 }
 
+// Main Class
 public class TrainConsistApp {
 
     public static void main(String[] args) {
 
         System.out.println("=== Train Consist Management App ===");
-
-        // UC14
         System.out.println("\n--- UC14: Handle Invalid Bogie Capacity ---");
 
         try {
 
-            // Valid bogie
             PassengerBogie b1 = new PassengerBogie("Sleeper", 72);
-            System.out.println("Created: " + b1);
+            b1.display();
 
-            // Invalid bogie
-            PassengerBogie b2 = new PassengerBogie("AC Chair", -10);
-            System.out.println("Created: " + b2);
+            PassengerBogie b2 = new PassengerBogie("AC Chair", 60);
+            b2.display();
+
+            // Invalid case
+            PassengerBogie b3 = new PassengerBogie("First Class", 0);
+            b3.display();
 
         } catch (InvalidCapacityException e) {
             System.out.println("Error: " + e.getMessage());
